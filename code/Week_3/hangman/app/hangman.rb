@@ -20,11 +20,15 @@ class Hangman
     when "1"
       self.word = RandomWord.adjs.next.split("_")[0]
     when "2"
-      puts "#{name_2}: Enter your word"              # another method
-      self.word = ask("Word: ") { |q| q.echo="*"}
-      puts "#{name_1}: Don't get Hanged!"
+      self.player_2_word(name_1, name_2)
     end
     self.progress = ("_"* self.word.length).chars
+  end
+
+  def player_2_word(name_1, name_2)
+    puts "#{name_2}: Enter your word"
+    self.word = ask("Word: ") { |q| q.echo="*"}
+    puts "#{name_1}: Don't get Hanged!"
   end
 
   def get_difficulty
@@ -36,7 +40,7 @@ class Hangman
     set_difficulty
   end
 
-  def set_difficulty #private
+  def set_difficulty
     case self.level
     when "e"
       self.chances = 18
@@ -55,25 +59,33 @@ class Hangman
 
   def play(guess)
     self.correct_guess = 0
-    self.word.chars.each_with_index do |letter, index| #another method
-      if letter == guess
-        self.progress[index] = letter
-        self.correct_guess = 1
-      end
-    end
+    self.word_checker(guess)
     if self.correct_guess == 0
       self.wrong_guess += 1
       puts "You got #{self.wrong_guess} wrong, out of #{self.chances} chances."
     end
   end
 
-  def progress_check(player)
-    if self.wrong_guess >= self.chances #2 methods
+  def word_checker(guess)
+    self.word.chars.each_with_index do |letter, index|
+      if letter == guess
+        self.progress[index] = letter
+        self.correct_guess = 1
+      end
+    end
+  end
+
+  def loss_check(player)
+    if self.wrong_guess >= self.chances
       puts "You Lose!"
       puts self.word
       player.loses += 1
       self.game_over = 1
-    elsif self.progress.join == self.word
+    end
+  end
+
+  def win_check(player)
+    if self.progress.join == self.word
       puts "You Win!"
       player.wins += 1
       display

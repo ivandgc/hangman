@@ -40,7 +40,8 @@ class Game
     while self.game.game_over == 0 do
       guess = self.game.prompt
       self.game.play(guess)
-      self.game.progress_check(self.player_1)
+      self.game.loss_check(self.player_1)
+      self.game.win_check(self.player_1)
       self.graph.graphic_selector(self.game.level, self.game.wrong_guess) if self.game.correct_guess == 0
     end
     self.save_and_show_records

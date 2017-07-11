@@ -1,5 +1,5 @@
 source "https://rubygems.org"
 gem 'pry'
 gem 'random-word', '~> 2.0'
-gem 'colorize'
+gem 'colorize', '~> 0.8.1'
 gem 'highline', '~> 1.7', '>= 1.7.8'

@@ -2,4 +2,4 @@
 
 require_relative '../config/enviroment.rb'
 
-order_66
+Game.new

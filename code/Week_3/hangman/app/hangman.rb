@@ -87,7 +87,7 @@ class Hangman
 
   def play_again
     puts "Play Again? [y/n]"
-    order_66 if gets.chomp == "y"
+    Game.new if gets.chomp == "y"
   end
 
 end

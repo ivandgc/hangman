@@ -38,7 +38,9 @@ class Game
 
   def game_loop
     while self.game.game_over == 0 do
+      self.player_1.display_guessed_letters
       guess = self.game.prompt
+      self.player_1.save_guessed_letters(guess)
       self.game.play(guess)
       self.game.loss_check(self.player_1)
       self.game.win_check(self.player_1)

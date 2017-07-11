@@ -1,6 +1,6 @@
 class User
 
-  attr_accessor :name, :wins, :loses
+  attr_accessor :name, :wins, :loses, :letters
 
   @@store = PStore.new("./app/data_file.pstore")
 
@@ -8,6 +8,7 @@ class User
     @name = name
     @wins = 0
     @loses = 0
+    @letters = []
   end
 
   def self.get_player_1_name
@@ -20,6 +21,17 @@ class User
     puts "Enter Word Setter name:"
     name = gets.chomp.downcase
     User.new(name)
+  end
+
+  def save_guessed_letters(guess)
+    self.letters << guess if ! self.letters.include?(guess)
+  end
+
+  def display_guessed_letters
+    if ! self.letters.empty?
+      display_letters = self.letters.collect {|l| l}.join(", ")
+      puts "Guessed letters: #{display_letters}"
+    end
   end
 
   def self.store

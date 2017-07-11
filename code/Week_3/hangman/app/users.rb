@@ -23,8 +23,21 @@ class User
     User.new(name)
   end
 
+  def check_guessed_letters(guess)
+    if (guess.length > 1)
+      puts "GUESS ONLY 1 CHARACTER"
+      1
+    elsif self.letters.include?(guess)
+      puts "YOU ALREDY GUESSED THAT"
+      1
+    else
+      save_guessed_letters(guess)
+      0
+    end
+  end
+
   def save_guessed_letters(guess)
-    self.letters << guess if ! self.letters.include?(guess)
+    self.letters << guess
   end
 
   def display_guessed_letters

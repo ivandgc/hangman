@@ -1,6 +1,6 @@
 class Hangman
 
-  attr_accessor :wrong_guess, :result, :game_over, :word, :progress, :players, :chances, :level, :correct_guess
+  attr_accessor :wrong_guess, :result, :game_over, :word, :progress, :menu, :chances, :level, :correct_guess
 
   def initialize
     @wrong_guess = 0
@@ -12,11 +12,11 @@ class Hangman
   def welcome
     puts "HANGMAN!
     1 or 2 players? 'l' for Leaderboard 'x' to Exit"
-    self.players = gets.chomp
+    self.menu = gets.chomp
   end
 
   def create_word(name_1, name_2 = nil)
-    case self.players
+    case self.menu
     when "1"
       self.word = RandomWord.adjs.next.split("_")[0]
     when "2"
@@ -99,7 +99,14 @@ class Hangman
 
   def play_again
     puts "Play Again? [y/n]"
-    Game.new if gets.chomp == "y"
+    case gets.chomp
+    when "y"
+      Game.new
+    when "n"
+      exit
+    else
+      self.play_again
+    end
   end
 
 end
